@@ -14,6 +14,7 @@ html, body {
   align-items: center;
   background-color: #f29000;
   padding: 30px 35px;
+  flex-wrap: wrap;
 }
 
 .logo a {
@@ -41,26 +42,48 @@ html, body {
   font-weight: bold;
 }
 
-.icons img {
-  width: 24px;
-  height: 24px;
-  margin-left: 15px;
+
+@media (max-width: 768px) {
+  .logo {
+    font-size: 18px; 
+  }
 }
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  margin: 0 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+
 
 .divi2 {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding:140px;
+  justify-content: center;
+  padding: 60px; 
   max-width: 1200px;
-  margin: 7px auto;
+  margin: 20px auto;
   background-color: #ffffff20;
   border-radius: 10px;
+  flex-wrap: wrap;
 }
 
+
 .text-content {
-  max-width: 50%;
-  text-align: left;
+  max-width: 600px;
+  text-align: center;
 }
 
 .text-content h1 {
@@ -79,6 +102,7 @@ html, body {
 .buttons {
   display: flex;
   gap: 15px;
+  justify-content: center;
 }
 
 .buttons .btn {
@@ -112,27 +136,27 @@ html, body {
 }
 
 .image-content img {
-  max-width: 400px;
+  max-width: 100%;
   height: auto;
   border-radius: 10px;
 }
 
 .divi3 {
-  display: flex; 
-  align-items: flex-start; 
-  justify-content: flex-start;
-  padding: 70px;
-  max-width: 1500px;
-  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 20px auto;
   background-color: #f5f8f7;
   color: #333; 
+  flex-wrap: wrap;
 }
 
-
 .divi3 .description {
-  flex: 1;
-  text-align: left; 
-  margin-right: 30px; 
+  flex: 1 1 100%;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .divi3 .description h1 {
@@ -164,24 +188,20 @@ html, body {
 .divi3 .description .btn:hover {
   background-color: #333;
 }
-
 .divi3 .products {
-  display: right;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
-  justify-content: space-between;
+  width: 100%;
 }
 
-
 .divi3 .products .product-card {
-  display: flex;
-  align-items: center;
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 15px;
-  flex: 1;
   transition: transform 0.3s ease-in-out;
-  max-width: 350px; 
+  text-align: center;
 }
 
 .divi3 .products .product-card:hover {
@@ -190,27 +210,40 @@ html, body {
 }
 
 .divi3 .products .product-card img {
-  max-width: 120px; 
+  max-width: 120px;
   height: auto;
-  margin-right: 15px; 
+  margin-bottom: 10px;
   border-radius: 5px;
 }
 
-.divi3 .products .product-card .product-info {
-  text-align: left;
+.divi3 .description h1 {
+  font-size: 36px; 
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333; 
 }
 
-.divi3 .products .product-card .product-info h3 {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #333;
+.divi3 .description p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #666; 
 }
 
-.divi3 .products .product-card .product-info p {
-  font-size: 14px;
+.divi3 .description .btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
   font-weight: bold;
-  color: #666;
+  color: white;
+  background-color: #1c1c1c;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.divi3 .description .btn:hover {
+  background-color: #333;
 }
 .footer {
   background-color: #f9f9f9;
@@ -220,18 +253,6 @@ html, body {
   line-height: 1.8;
 }
 
-.footer .right {
-  flex: 1;
-  min-width: 150px;
-  margin-top: 40px; 
-}
-.footer .middle {
-  flex: 1;
-  min-width: 150px;
-  margin-top: 40px; 
-  padding-left:20px;
-}
-
 .footer .content {
   display: flex;
   flex-wrap: wrap;
@@ -239,50 +260,11 @@ html, body {
   gap: 20px;
 }
 
-.footer .left {
-  flex: 1;
-  min-width: 250px;
-  margin-bottom: 20px;
-}
-
-.footer .left h2 {
-  font-size: 30px;
-  font-weight: bold;
-  color: #2e626b;
-  margin-bottom: 15px;
-}
-
-.footer .left p {
-  margin-bottom: 20px;
-}
-
-.footer .social-icons {
-  display: flex;
-  gap: 15px;
-}
-
-.footer .social-icons a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  background-color: #d9e6e6;
-  border-radius: 50%;
-  text-decoration: none;
-  color: #2e626b;
-  font-size: 20px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.footer .social-icons a:hover {
-  background-color: #2e626b;
-  color: #ffffff;
-}
-
-.footer .middle, .footer .right {
-  flex: 1;
-  min-width: 150px;
+.footer .left,
+.footer .middle,
+.footer .right {
+  flex: 1 1 200px;
+  text-align: left;
 }
 
 .footer ul {
@@ -312,4 +294,88 @@ html, body {
   border-top: 1px solid #ddd;
   font-size: 12px;
   color: #6a6a6a;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .divi2 {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .text-content h1 {
+    font-size: 32px;
+  }
+
+  .text-content p {
+    font-size: 14px;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  .divi3 {
+    padding: 20px;
+  }
+
+  .footer .content {
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .text-content h1 {
+    font-size: 28px;
+  }
+
+  .text-content p {
+    font-size: 12px;
+  }
+
+  .footer ul {
+    text-align: center;
+  }
+}
+
+.footer .social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.footer .social-icons a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background-color: #d9e6e6;
+  border-radius: 50%;
+  text-decoration: none;
+  color: #2e626b;
+  font-size: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.footer .social-icons a:hover {
+  background-color: #2e626b;
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .footer .social-icons {
+    justify-content: center;
+  }
+
+  .footer .social-icons a {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+  }
 }

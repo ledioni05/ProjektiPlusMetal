@@ -1,28 +1,47 @@
 <?php
-$servername = "localhost";
-$dbname = "DESKTOP-9G4CNLD"; 
-
-
-$conn = new mysqli($servername, "", "", $dbname);
-
-if ($conn->connect_error) {
-    die("Lidhja dështoi: " . $conn->connect_error);
-}
+session_start();
+include 'connect.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $role = "user"; 
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
 
-    $sql = "INSERT INTO users (username, email, password, role) VALUES ('$username', '$email', '$password', '$role')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Regjistrimi u krye me sukses! <a href='index.html'>Kyçu këtu</a>";
-    } else {
-        echo "Gabim: " . $conn->error;
+    if (empty($username) || empty($password)) {
+        die("Të gjitha fushat janë të detyrueshme!");
     }
-}
 
-$conn->close();
+
+    $stmt = $conn->prepare("SELECT id, password, role FROM users WHERE username = ?");
+    if (!$stmt) {
+        die("Gabim në SQL (SELECT LOGIN): " . $conn->error);
+    }
+
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $stmt->store_result();
+    
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($id, $hashed_password, $role);
+        $stmt->fetch();
+
+        if (password_verify($password, $hashed_password)) {
+            $_SESSION['username'] = $username;
+            $_SESSION['role'] = $role;
+
+            if ($role == "admin") {
+                header("Location: Dashboard.php");
+            } else {
+                header("Location: index.html");
+            }
+            exit();
+        } else {
+            die("Fjalëkalimi është i pasaktë.");
+        }
+    } else {
+        die("Përdoruesi nuk ekziston.");
+    }
+
+    $stmt->close();
+    $conn->close();
+}
 ?>

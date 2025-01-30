@@ -66,6 +66,12 @@ html, body {
     font-size: 18px;
     font-weight: bold;
   }
+  .icons img {
+    width: 24px;
+    height: 24px;
+    margin-left: 15px;
+  }
+  
   
   
   .divi2 {

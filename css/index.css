@@ -16,6 +16,11 @@ html, body {
   padding: 30px 35px;
   flex-wrap: wrap;
 }
+.icons img {
+  width: 24px;
+  height: 24px;
+  margin-left: 15px;
+}
 
 .logo a {
   font-size: 37px;

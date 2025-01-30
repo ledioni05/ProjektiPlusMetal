@@ -1,8 +1,9 @@
 <?php
-session_start();
-include 'connect.php';
+include_once "User.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user = new User();
+
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
@@ -10,37 +11,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Të gjitha fushat janë të detyrueshme!");
     }
 
-    $stmt = $conn->prepare("SELECT id, password, role FROM users WHERE username = ?");
-    if (!$stmt) {
-        die("Gabim në SQL (LOGIN): " . $conn->error);
-    }
-
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-    $stmt->store_result();
-
-    if ($stmt->num_rows > 0) {
-        $stmt->bind_result($id, $hashed_password, $role);
-        $stmt->fetch();
-
-        if (password_verify($password, $hashed_password)) {
-            $_SESSION['username'] = $username;
-            $_SESSION['role'] = $role;
-
-            if ($role == "admin") {
-                header("Location: Dashboard.php");
-            } else {
-                header("Location: index.html");
-            }
-            exit();
+    if ($user->login($username, $password)) {
+        if ($_SESSION['role'] == "admin") {
+            header("Location: Dashboard.php");
         } else {
-            die("Fjalëkalimi është i pasaktë.");
+            header("Location: index.html");
         }
+        exit();
     } else {
-        die("Përdoruesi nuk ekziston.");
+        die("Emri i përdoruesit ose fjalëkalimi është i pasaktë.");
     }
-
-    $stmt->close();
-    $conn->close();
 }
 ?>

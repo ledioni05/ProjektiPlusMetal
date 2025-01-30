@@ -16,6 +16,11 @@ html, body {
   padding: 30px 35px;
 }
 
+.divi2.image-content{
+    width: 20%; 
+    height: auto; 
+}
+
 .logo a {
   font-size: 37px;
   font-weight: bold;

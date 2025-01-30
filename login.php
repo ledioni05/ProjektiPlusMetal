@@ -10,16 +10,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Të gjitha fushat janë të detyrueshme!");
     }
 
-
     $stmt = $conn->prepare("SELECT id, password, role FROM users WHERE username = ?");
     if (!$stmt) {
-        die("Gabim në SQL (SELECT LOGIN): " . $conn->error);
+        die("Gabim në SQL (LOGIN): " . $conn->error);
     }
 
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $stmt->store_result();
-    
+
     if ($stmt->num_rows > 0) {
         $stmt->bind_result($id, $hashed_password, $role);
         $stmt->fetch();

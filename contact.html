@@ -56,21 +56,46 @@
                 <p>+383 45 338 001</p>
             </div>
         </div>
-        <form class="contact-form">
-            <label for="name">Emri:</label>
-            <input type="text" id="name" placeholder="Shkruani emrin tuaj">
-    
-            <label for="surname">Mbiemri:</label>
-            <input type="text" id="surname" placeholder="Shkruani mbiemrin tuaj">
-    
-            <label for="email">Email:</label>
-            <input type="email" id="email" placeholder="Shkruani email-in tuaj">
-    
-            <label for="message">Mesazhi:</label>
-            <textarea id="message" rows="4" placeholder="Shkruani mesazhin tuaj"></textarea>
-    
-            <button type="submit">Dërgo Mesazhin</button>
-        </form>
+        <form class="contact-form" id="contact-form">
+          <label for="name">Emri:</label>
+          <input type="text" id="name" name="user_name" placeholder="Shkruani emrin tuaj" required>
+      
+          <label for="surname">Mbiemri:</label>
+          <input type="text" id="surname" name="user_surname" placeholder="Shkruani mbiemrin tuaj" required>
+      
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="user_email" placeholder="Shkruani email-in tuaj" required>
+      
+          <label for="message">Mesazhi:</label>
+          <textarea id="message" name="user_message" rows="4" placeholder="Shkruani mesazhin tuaj" required></textarea>
+      
+          <button type="submit">Dërgo Mesazhin</button>
+      </form>
+
+      <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+      
+      <script>
+
+        (function () {
+          emailjs.init('hNq0Jn6GtLixVgE7b');
+        })();
+      
+       
+        document.getElementById('contact-form').addEventListener('submit', function (event) {
+          event.preventDefault(); 
+      
+      
+          emailjs.sendForm('service_ucjejsu', 'template_5rmykqk', this)
+            .then(function () {
+              alert('Mesazhi u dërgua me sukses!');
+              document.getElementById('contact-form').reset(); 
+            }, function (error) {
+              console.error('Dërgimi i mesazhit dështoi:', error);
+              alert('Dërgimi i mesazhit dështoi. Ju lutem provoni përsëri.');
+            });
+        });
+      </script>
+      
     </div>
     
 

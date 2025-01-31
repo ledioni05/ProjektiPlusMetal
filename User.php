@@ -47,5 +47,21 @@ class User {
         }
         return false;
     }
+
+    public function getUsers() {
+        $query = "SELECT id, username, email, role FROM " . $this->table_name;
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function deleteUser($user_id) {
+        $query = "DELETE FROM " . $this->table_name . " WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id", $user_id, PDO::PARAM_INT);
+        
+        return $stmt->execute();
+    }
+    
 }
 ?>

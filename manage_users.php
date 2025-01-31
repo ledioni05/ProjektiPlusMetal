@@ -52,7 +52,7 @@ $users = $user->getUsers();
                                 <td>
                                     <form action='delete_user.php' method='POST' onsubmit='return confirm(\"A jeni i sigurt që dëshironi të fshini këtë përdorues?\");'>
                                         <input type='hidden' name='user_id' value='" . htmlspecialchars($row["id"]) . "'>
-                                        <button type='submit' class='delete-btn'>🗑️ Fshije</button>
+                                        <button type='submit' class='delete-btn'>❌ Fshije</button>
                                     </form>
                                 </td>
 
@@ -63,6 +63,13 @@ $users = $user->getUsers();
                 }
                 ?>
             </tbody>
+            <?php
+            if (isset($_GET['success'])) {
+                echo "<p class='success-msg'>✅ Përdoruesi u fshi me sukses.</p>";
+            } elseif (isset($_GET['error'])) {
+                echo "<p class='error-msg'>❌ Fshirja dështoi.</p>";
+            }
+            ?>
         </table>
     </div>
 </body>
@@ -116,5 +123,34 @@ tr:nth-child(even) {
     padding: 10px 15px;
     text-decoration: none;
     border-radius: 5px;
+}
+
+.delete-btn {
+    background-color: red;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.delete-btn:hover {
+    background-color: darkred;
+    transform: scale(1.05);
+}
+
+
+.success-msg {
+    color: green;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.error-msg {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
 }
 </style>

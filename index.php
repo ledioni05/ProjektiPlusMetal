@@ -68,11 +68,12 @@
         <div class="products">
             
             <div class="product-card">
-                <img src="Hidranti1.png" alt="Hidranti">
-                <h3>Hidranti</h3>
-                <p>        $50.00</p>
-            </div>
-            
+            <div class="product-item">
+            <img src="Hidranti1.png" alt="Hidranti">
+             <h3>Hidranti</h3>
+             <p>$50.00</p>
+</div>
+
             <div class="product-card">
                 <img src="Photo5.png" alt="Kutia e Ndihmës së Parë">
                 <h3>Kutia e Ndihmës së Parë</h3>

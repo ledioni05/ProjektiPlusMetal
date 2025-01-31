@@ -40,41 +40,49 @@
             <img src="Hidranti1.png" alt="Hidranti">
             <h3>Hidranti</h3>
             <strong>$50.00</strong>
+            <button class="add-to-cart" data-name="Hidranti" data-price="50.00" data-image="Hidranti1.png">Shto në Kartë</button>
         </div>
         <div class="product-item">
             <img src="Photo5.png" alt="Kutia e Ndihmës së Parë">
             <h3>Kutia e Ndihmës së Parë</h3>
             <strong>$20.00</strong>
+            <button class="add-to-cart" data-name="KutiaN" data-price="20.00" data-image="Photo5.png">Shto në Kartë</button>
         </div>
         <div class="product-item">
             <img src="Photo6.png" alt="Kutia Postare">
             <h3>Kutia Postare</h3>
             <strong>$27.00</strong>
+            <button class="add-to-cart" data-name="KutiaP" data-price="27.00" data-image="Photo6.png">Shto në Kartë</button>
         </div>
         <div class="product-item">
             <img src="Photo11.png" alt="Kaseta Metalike Standarde">
             <h3>Kaseta Metalike Standarde</h3>
             <strong>$65.00</strong>
+            <button class="add-to-cart" data-name="KasetaMS" data-price="65.00" data-image="Photo11.png">Shto në Kartë</button>
         </div>
         <div class="product-item">
             <img src="Photo7.png" alt="Kasete Metalike">
             <h3>Kasete Metalike</h3>
             <strong>$60.00</strong>
+            <button class="add-to-cart" data-name="KutiaM" data-price="60.00" data-image="Photo7.png">Shto në Kartë</button>
         </div>
         <div class="product-item">
             <img src="Photo10.png" alt="Mbështjellës Metalik">
             <h3>Mbështjellës Metalik</h3>
             <strong>$15.00</strong>
+            <button class="add-to-cart" data-name="Mbështjellës" data-price="15.00" data-image="Photo10.png">Shto në Kartë</button>
         </div>
         <div class="product-item">
             <img src="Photo8.png" alt="Rafte Metalike">
             <h3>Rafte Metalike</h3>
             <strong>$125.00</strong>
+            <button class="add-to-cart" data-name="Rafte" data-price="125.00" data-image="Photo8.png">Shto në Kartë</button>
         </div>
         <div class="product-item">
             <img src="Photo12.png" alt="Kalldaja Elektrike">
             <h3>Kalldaja Elektrike</h3>
             <strong>$150.00</strong>
+            <button class="add-to-cart" data-name="Kalldaja" data-price="150.00" data-image="Photo12.png">Shto në Kartë</button>
         </div>
     </div>
     
@@ -122,6 +130,38 @@
           Copyright 2024 ©Të drejtat e autorizuara — E dizajnuar nga Ledion Krasniqi dhe Ardit Jakaj
         </div>
       </div>
-      
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let addToCartButtons = document.querySelectorAll(".add-to-cart");
+        
+            addToCartButtons.forEach(button => {
+                button.addEventListener("click", function () {
+                    let productName = this.getAttribute("data-name");
+                    let productPrice = this.getAttribute("data-price");
+                    let productImage = this.getAttribute("data-image");
+        
+                    let product = {
+                        name: productName,
+                        price: productPrice,
+                        image: productImage,
+                        quantity: 1
+                    };
+        
+                    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        
+                    let existingProduct = cart.find(item => item.name === productName);
+                    if (existingProduct) {
+                        existingProduct.quantity += 1;
+                    } else {
+                        cart.push(product);
+                    }
+        
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    alert("Produkti u shtua në kartë!");
+                });
+            });
+        });
+        </script>
+        
 </body>
 </html>

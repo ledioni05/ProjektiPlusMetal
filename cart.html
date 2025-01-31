@@ -46,30 +46,6 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><img src="Photo7.png" alt="Produkti 1"></td>
-                    <td>Produkti 1</td>
-                    <td>$49.00</td>
-                    <td>
-                        <button class="qty-btn">-</button>
-                        <input type="text" value="1">
-                        <button class="qty-btn">+</button>
-                    </td>
-                    <td>$49.00</td>
-                    <td><button class="delete-btn">X</button></td>
-                </tr>
-                <tr>
-                    <td><img src="Hidranti1.png" alt="Produkti 2"></td>
-                    <td>Produkti 2</td>
-                    <td>$49.00</td>
-                    <td>
-                        <button class="qty-btn">-</button>
-                        <input type="text" value="1">
-                        <button class="qty-btn">+</button>
-                    </td>
-                    <td>$49.00</td>
-                    <td><button class="delete-btn">X</button></td>
-                </tr>
             </tbody>
         </table>
     
@@ -86,7 +62,7 @@
     
         <div class="cart-summary">
             <h3>Totali i Kartës</h3>
-            <p>Netotali: <span>$230.00</span></p>
+            <p>Nentotali: <span>$230.00</span></p>
             <p>Totali: <span>$230.00</span></p>
             <button class="checkout-btn">Shko te pagesa</button>
         </div>
@@ -136,6 +112,64 @@
           Copyright 2024 ©Të drejtat e autorizuara — E dizajnuar nga Ledion Krasniqi dhe Ardit Jakaj
         </div>
       </div>
-      
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let cartTableBody = document.querySelector(".cart-table tbody");
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        
+            cartTableBody.innerHTML = "";
+        
+            cart.forEach((product, index) => {
+                let row = document.createElement("tr");
+        
+                row.innerHTML = `
+                    <td><img src="${product.image}" alt="${product.name}" width="50"></td>
+                    <td>${product.name}</td>
+                    <td>$${product.price}</td>
+                    <td>
+                        <button class="qty-btn decrease" data-index="${index}">-</button>
+                        <input type="text" value="${product.quantity}" readonly>
+                        <button class="qty-btn increase" data-index="${index}">+</button>
+                    </td>
+                    <td>$${(product.price * product.quantity).toFixed(2)}</td>
+                    <td><button class="delete-btn" data-index="${index}">X</button></td>
+                `;
+        
+                cartTableBody.appendChild(row);
+            });
+        
+            document.querySelectorAll(".increase").forEach(button => {
+                button.addEventListener("click", function () {
+                    let index = this.getAttribute("data-index");
+                    cart[index].quantity++;
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    location.reload();
+                });
+            });
+        
+            document.querySelectorAll(".decrease").forEach(button => {
+                button.addEventListener("click", function () {
+                    let index = this.getAttribute("data-index");
+                    if (cart[index].quantity > 1) {
+                        cart[index].quantity--;
+                    } else {
+                        cart.splice(index, 1);
+                    }
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    location.reload();
+                });
+            });
+        
+            document.querySelectorAll(".delete-btn").forEach(button => {
+                button.addEventListener("click", function () {
+                    let index = this.getAttribute("data-index");
+                    cart.splice(index, 1);
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    location.reload();
+                });
+            });
+        });
+        </script>
+        
 </body>
 </html>

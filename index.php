@@ -44,7 +44,7 @@
             <h1>Fabrika Prodhuese</h1>
             <p>Njësi prodhuese që fokusohet në krijimin e kasetave metalike për përdorime të ndryshme industriale dhe komerciale. Këto kaseta mund të përdoren për depozitim, mbrojtje të pajisjeve, pako për mallra specifike, apo në industri të tilla si elektronika, mekanika dhe transporti.</p>
             <div class="buttons">
-                <a href="cart.html" class="btn btn-primary">Blej tani</a>
+                <a href="shop.html" class="btn btn-primary">Blej tani</a>
                 <a href="login.html" class="btn btn-secondary">Regjistrohu</a>
             </div>
         </div>

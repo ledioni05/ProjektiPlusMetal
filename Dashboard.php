@@ -24,8 +24,10 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
 </head>
 <body>
     <nav class="navbar">
+        <a href="index.php" class="kthehu">Kthehu</a>
         <h1>Admin Dashboard</h1>
-        <a href="logout.php" class="logout-btn">Dil</a>
+        <a href="logout.php" class="logout-btn">Log Out</a>
+        
     </nav>
     
     <div class="container">
@@ -51,36 +53,56 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
 </html>
 
 <style>
-    body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
-
 .navbar {
-    background-color: #333;
+    background-color: #222; 
     color: white;
-    padding: 15px;
+    padding: 15px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
 }
+
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+
+.kthehu {
+    background-color: #007bff; 
+    margin-right: auto; 
+}
+
+.kthehu:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
 
 .navbar h1 {
     margin: 0;
+    font-size: 22px;
+    text-align: center;
+    flex-grow: 1; 
+    display: flex;
+    justify-content: center;
 }
 
+
 .logout-btn {
-    background-color: red;
-    color: white;
-    padding: 10px 15px;
-    text-decoration: none;
-    border-radius: 5px;
+    background-color: #dc3545; 
+    margin-left: auto; 
 }
 
 .logout-btn:hover {
-    background-color: darkred;
+    background-color: #b02a37;
+    transform: scale(1.05);
 }
 
 .container {

@@ -14,17 +14,24 @@
             <a href="index.html">Plus Metal<span>.</span></a>
         </div>
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="shop.html">Shop</a></li>
-            <li><a href="about.html">About us</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="contact.html">Contact us</a></li>
-
             <?php
             if (isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
                 echo '<li><a href="Dashboard.php">Dashboard</a></li>';
             }
             ?>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact us</a></li>
+
+
+            <?php
+            if (isset($_SESSION['username'])) {
+                echo '<li><a href="logout.php">Log Out</a></li>';
+            } 
+            ?>
+
         </ul>
         <div class="icons">
             <a href="login.html"><img src="user.svg" alt="User"></a>

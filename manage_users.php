@@ -48,6 +48,14 @@ $users = $user->getUsers();
                                 <td>" . htmlspecialchars($row["username"]) . "</td>
                                 <td>" . htmlspecialchars($row["email"]) . "</td>
                                 <td>" . ucfirst(htmlspecialchars($row["role"])) . "</td>
+
+                                <td>
+                                    <form action='delete_user.php' method='POST' onsubmit='return confirm(\"A jeni i sigurt që dëshironi të fshini këtë përdorues?\");'>
+                                        <input type='hidden' name='user_id' value='" . htmlspecialchars($row["id"]) . "'>
+                                        <button type='submit' class='delete-btn'>🗑️ Fshije</button>
+                                    </form>
+                                </td>
+
                               </tr>";
                     }
                 } else {

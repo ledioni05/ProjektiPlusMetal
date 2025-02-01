@@ -10,11 +10,16 @@ class Order {
         $this->conn = $database->connect();
     }
 
-    public function placeOrder($imazhi, $produkti, $cmimi, $sasia, $totali) {
-        $query = "INSERT INTO " . $this->table_name . " (Imazhi, Produkti, Çmimi, Sasia, Totali) 
-                  VALUES (:imazhi, :produkti, :cmimi, :sasia, :totali)";
+    public function placeOrder($emri, $mbiemri, $telefoni, $adresa, $komente, $imazhi, $produkti, $cmimi, $sasia, $totali) {
+        $query = "INSERT INTO produktet (Emri, Mbiemri, Telefoni, Adresa, Komente, Imazhi, Produkti, Çmimi, Sasia, Totali) 
+                  VALUES (:emri, :mbiemri, :telefoni, :adresa, :komente, :imazhi, :produkti, :cmimi, :sasia, :totali)";
     
         $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":emri", $emri, PDO::PARAM_STR);
+        $stmt->bindParam(":mbiemri", $mbiemri, PDO::PARAM_STR);
+        $stmt->bindParam(":telefoni", $telefoni, PDO::PARAM_STR);
+        $stmt->bindParam(":adresa", $adresa, PDO::PARAM_STR);
+        $stmt->bindParam(":komente", $komente, PDO::PARAM_STR);
         $stmt->bindParam(":imazhi", $imazhi, PDO::PARAM_STR);
         $stmt->bindParam(":produkti", $produkti, PDO::PARAM_STR);
         $stmt->bindParam(":cmimi", $cmimi, PDO::PARAM_STR);
@@ -25,28 +30,27 @@ class Order {
     }
     
     public function getOrders() {
-        $query = "SELECT id, Imazhi, Produkti, Çmimi, Sasia, Totali FROM " . $this->table_name;
+        $query = "SELECT id, Emri, Mbiemri, Telefoni, Adresa, Komente, Imazhi, Produkti, Çmimi, Sasia, Totali FROM " . $this->table_name;
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
     public function getOrderById($order_id) {
-        $query = "SELECT id, Imazhi, Produkti, Çmimi, Sasia, Totali FROM " . $this->table_name . " WHERE id = :order_id";
+        $query = "SELECT id, Emri, Mbiemri, Telefoni, Adresa, Komente, Imazhi, Produkti, Çmimi, Sasia, Totali FROM " . $this->table_name . " WHERE id = :order_id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":order_id", $order_id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
-    public function deleteOrder($order_id) {
-        $query = "DELETE FROM produktet WHERE id = :order_id LIMIT 1";
     
+    public function deleteOrder($order_id) {
+        $query = "DELETE FROM " . $this->table_name . " WHERE id = :order_id LIMIT 1";
+        
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":order_id", $order_id, PDO::PARAM_INT);
         
         return $stmt->execute();
     }
-    
 }
 ?>

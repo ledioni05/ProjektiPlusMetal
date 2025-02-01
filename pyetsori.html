@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Te dhenat për Porosinë</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Plotëso të dhënat për porosinë</h2>
+    <form id="pyetsori-form" action="checkout.php" method="POST">
+        <label for="emri">Emri:</label>
+        <input type="text" name="emri" id="emri" required>
+    
+        <label for="mbiemri">Mbiemri:</label>
+        <input type="text" name="mbiemri" id="mbiemri" required>
+    
+        <label for="telefoni">Numri i Telefonit:</label>
+        <input type="text" name="telefoni" id="telefoni" required>
+    
+        <label for="adresa">Adresa:</label>
+        <input type="text" name="adresa" id="adresa" required>
+    
+        <label for="komente">A keni ndonjë kërkesë të veçantë për këtë porosi?</label>
+        <textarea name="komente" id="komente"></textarea>
+    
+        <input type="hidden" name="products" id="products_input">
+        <input type="hidden" name="total_price" id="total_price_input">
+    
+        <button type="submit" class="pay-btn">📩 Dërgo Porosinë</button>
+    </form>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    
+            if (cartItems.length === 0) {
+                alert("Shporta juaj është bosh!");
+                return;
+            }
+    
+            document.getElementById("products_input").value = JSON.stringify(cartItems);
+            document.getElementById("total_price_input").value = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
+    
+            console.log("Produkte për tu dërguar:", document.getElementById("products_input").value);
+            console.log("Çmimi total:", document.getElementById("total_price_input").value);
+        });
+    
+        document.getElementById("pyetsori-form").addEventListener("submit", function(event) {
+            let emri = document.getElementById("emri").value.trim();
+            let mbiemri = document.getElementById("mbiemri").value.trim();
+            let telefoni = document.getElementById("telefoni").value.trim();
+            let adresa = document.getElementById("adresa").value.trim();
+    
+            if (!emri || !mbiemri || !telefoni || !adresa) {
+                alert("Ju lutemi plotësoni të gjitha fushat e kërkuara.");
+                event.preventDefault();
+            } else {
+                console.log("Formulari është mbushur saktë dhe po dërgohet.");
+            }
+        });
+        
+    </script>
+    
+    
+</body>
+</html>

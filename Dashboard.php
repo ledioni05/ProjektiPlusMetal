@@ -44,7 +44,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != 'admin') {
             <div class="card">
                 <h3>Raportet</h3>
                 <p>Shiko dhe analizo raportet.</p>
-                <a href="reports.php" class="btn">Shiko</a>
+                <a href="manage_orders.php" class="btn">Shiko</a>
             </div>
 
         </div>

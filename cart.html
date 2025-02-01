@@ -64,11 +64,14 @@
             <h3>Totali i Kartës</h3>
             <p>Nentotali: <span>$230.00</span></p>
             <p>Totali: <span>$230.00</span></p>
-            <button class="checkout-btn">Shko te pagesa</button>
+            <form id="checkout-form" action="checkout.php" method="POST">
+                <input type="hidden" name="user_id" id="user_id" value="1">
+                <input type="hidden" name="products" id="products_input">
+                <input type="hidden" name="total_price" id="total_price_input">
+                <button type="submit" class="pay-btn">💳 Shko te Pagesa</button>
+            </form>            
         </div>
     </div>
-    
-
     <div class="footer">
         <div class="content">
           <div class="left">
@@ -170,6 +173,23 @@
             });
         });
         </script>
+     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    
+            if (cartItems.length === 0) {
+                alert("Shporta juaj është bosh!");
+                return;
+            }
+    
+            document.getElementById("products_input").value = JSON.stringify(cartItems);
+            document.getElementById("total_price_input").value = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
+    
+            console.log("Produkte për tu dërguar:", cartItems);
+            console.log("Çmimi total:", document.getElementById("total_price_input").value);
+        });
+    </script>
+    
         
 </body>
 </html>

@@ -46,6 +46,32 @@ html, body {
   margin-left: 15px;
 }
 
+@media screen and (max-width: 400px) {
+  .logo a {
+    font-size: 10px !important;
+  }
+
+  .nav-links {
+    width: 50% !important;
+    padding: 8px 0 !important;
+    gap: 2px !important;
+  }
+
+  .nav-links li {
+    margin: 3px 0 !important;
+  }
+
+  .nav-links a {
+    font-size: 8px !important;
+  }
+
+  .icons img {
+    width: 20px !important;
+    height: 20px !important;
+    margin: 5px !important;
+  }
+}
+
 .divi2 {
   display: flex;
   align-items: center;

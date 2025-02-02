@@ -5,11 +5,13 @@ class User {
     private $table_name = "users";
 
     public function __construct() {
+        if (session_status() === PHP_SESSION_NONE) { 
+            session_start();
+        }
         $database = new Database();
         $this->conn = $database->connect();
     }
 
-    
     public function register($username, $email, $password) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $role = "user"; 
@@ -21,40 +23,34 @@ class User {
         $stmt->bindParam(":password", $hashed_password);
         $stmt->bindParam(":role", $role);
 
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
+        return $stmt->execute();
     }
 
-    
     public function login($username, $password) {
-        $query = "SELECT id, password, role FROM " . $this->table_name . " WHERE username = :username";
+        $query = "SELECT id, username, email, password, role FROM " . $this->table_name . " WHERE username = :username";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":username", $username);
         $stmt->execute();
-
+      
         if ($stmt->rowCount() > 0) {
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            if (password_verify($password, $row["password"])) {
-                session_start();
-                $_SESSION['username'] = $username;
-                $_SESSION['role'] = $row["role"];
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            if (password_verify($password, $user["password"])) {
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['email'] = $user['email'];
+                $_SESSION['role'] = $user["role"];
 
                 return true;
             }
         }
         return false;
     }
-
     public function getUsers() {
         $query = "SELECT id, username, email, role FROM " . $this->table_name;
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
     public function deleteUser($user_id) {
         $query = "DELETE FROM " . $this->table_name . " WHERE id = :id";
         $stmt = $this->conn->prepare($query);
@@ -62,6 +58,24 @@ class User {
         
         return $stmt->execute();
     }
-    
+
+    public function getEmail($username) {
+        $query = "SELECT email FROM " . $this->table_name . " WHERE username = :username";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":username", $username);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user ? $user['email'] : "N/A";
+    }
+
+    public function isLoggedIn() {
+        return isset($_SESSION['username']);
+    }
+
+    public function logout() {
+        session_destroy();
+        header("Location: index.php");
+        exit();
+    }
 }
 ?>

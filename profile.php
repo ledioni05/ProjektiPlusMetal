@@ -12,10 +12,9 @@ if (!$user->isLoggedIn()) {
 $userData = $user->getUsers($_SESSION['user_id']);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['logout'])) {
-    session_unset();  // Fshin të gjitha të dhënat nga sesioni
-    session_destroy(); // Shkatërron sesionin
-    setcookie(session_name(), '', time() - 3600, '/'); // Fshin cookie-n e sesionit
-
+    session_unset(); 
+    session_destroy(); 
+    setcookie(session_name(), '', time() - 3600, '/'); 
     header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
     header("Pragma: no-cache");
     header("Expires: Sat, 01 Jan 2000 00:00:00 GMT");
@@ -43,6 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['logout'])) {
         
         <form method="post">
             <button type="submit" name="logout" class="logout-btn">🔒 Dil nga llogaria</button>
+            <button type="button" onclick="window.location.href='index.php'">Kthehu</button>
+
         </form>
     </div>
 

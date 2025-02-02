@@ -34,7 +34,7 @@
 
         </ul>
         <div class="icons">
-            <a href="login.html"><img src="user.svg" alt="User"></a>
+        <a href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.html'; ?>"><img src="user.svg" alt="User"></a>
             <a href="cart.html"><img src="cart.svg" alt="Cart"></a>
         </div>
     </nav>

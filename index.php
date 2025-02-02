@@ -26,12 +26,6 @@
             <li><a href="contact.html">Contact us</a></li>
 
 
-            <?php
-            if (isset($_SESSION['username'])) {
-                echo '<li><a href="logout.php">Log Out</a></li>';
-            } 
-            ?>
-
         </ul>
         <div class="icons">
         <a href="<?php echo isset($_SESSION['username']) ? 'profile.php' : 'login.html'; ?>"><img src="user.svg" alt="User"></a>

@@ -10,7 +10,7 @@
     <div class="container">
         <div id="login-form" class="form-container">
             <h2>Login</h2>
-            <form action="login.php" method="POST" autocomplete="off" onsubmit="clearFields">
+            <form action="login.php" method="POST" autocomplete="off" >
                 <input type="text" name="username" placeholder="Username" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <button type="submit">Login</button>
@@ -39,10 +39,14 @@
             document.getElementById('register-form').style.display = 'none';
             document.getElementById('login-form').style.display = 'block';
         }
-        function clearFields(){
-            document.getElementById('username').value = '';
-            document.getElementById('password').value = '';
+        if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
         }
+        function preventBack() {
+        window.history.forward();
+        }
+        setTimeout("preventBack()", 0);
+         window.onunload = function () { null };
     </script>
 </body>
 </html>

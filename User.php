@@ -45,12 +45,22 @@ class User {
         }
         return false;
     }
+
+    public function getUserData($user_id) {
+        $query = "SELECT id, username, email, role FROM " . $this->table_name . " WHERE id = :user_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":user_id", $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
+    }
+
     public function getUsers() {
         $query = "SELECT id, username, email, role FROM " . $this->table_name;
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
     public function deleteUser($user_id) {
         $query = "DELETE FROM " . $this->table_name . " WHERE id = :id";
         $stmt = $this->conn->prepare($query);
@@ -69,13 +79,25 @@ class User {
     }
 
     public function isLoggedIn() {
-        return isset($_SESSION['username']);
+        return isset($_SESSION['user_id']);
     }
 
     public function logout() {
+        session_unset();
         session_destroy();
+        setcookie(session_name(), '', time() - 3600, '/');
         header("Location: index.php");
         exit();
     }
+    
+    public function getUserId($username) {
+        $query = "SELECT id FROM " . $this->table_name . " WHERE username = :username";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":username", $username);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user ? $user['id'] : null;
+    }
+    
 }
 ?>

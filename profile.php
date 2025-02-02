@@ -5,11 +5,12 @@ include_once "User.php";
 $user = new User();
 
 if (!$user->isLoggedIn()) {
-    header("Location: index.php");
+    header("Location: login.php");
     exit();
 }
 
-$userData = $user->getUsers();
+
+$userData = $user->getUserData($_SESSION['user_id']);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['logout'])) {
     session_unset();  
@@ -20,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['logout'])) {
     header("Pragma: no-cache");
     header("Expires: Sat, 01 Jan 2000 00:00:00 GMT");
 
-    header("Location: login.php");
+    header("Location: index.php");
     exit();
 }
 
@@ -37,7 +38,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['kthehu'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <link rel="stylesheet" href="style.css">
-    <style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <h2>👤 Profili i Përdoruesit</h2>
+        <p><strong>Username:</strong> <?php echo htmlspecialchars($userData['username'] ?? "Përdorues i panjohur"); ?></p>
+        <p><strong>Email:</strong> <?php echo htmlspecialchars($userData['email'] ?? "Email i panjohur"); ?></p>
+        <p class="success-msg">✅ Ju jeni i kyçur në sistem!</p>
+        
+        <form method="post">
+            <button type="submit" name="logout" class="logout-btn">🔒 Dil nga llogaria</button>
+        </form>
+        <form method="post">
+            <button type="submit" name="kthehu" class="kthehu-btn">🏠 Kthehu në Home Page</button>
+        </form>
+    </div>
+
+</body>
+</html>
+
+
+<style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -111,22 +133,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['kthehu'])) {
             }
         }
     </style>
-</head>
-<body>
-
-    <div class="profile-container">
-        <h2>👤 Profili i Përdoruesit</h2>
-        <p><strong>Username:</strong> <?php echo htmlspecialchars($userData['username']); ?></p>
-        <p><strong>Email:</strong> <?php echo htmlspecialchars($userData['email']); ?></p>
-        <p class="success-msg">✅ Ju jeni i kyçur në sistem!</p>
-        
-        <form method="post">
-            <button type="submit" name="logout" class="logout-btn">🔒 Dil nga llogaria</button>
-        </form>
-        <form method="post">
-            <button type="submit" name="kthehu" class="kthehu-btn">🏠 Kthehu në Home Page</button>
-        </form>
-    </div>
-
-</body>
-</html>
